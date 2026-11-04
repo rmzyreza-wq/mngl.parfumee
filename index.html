@@ -77,9 +77,9 @@
     <div id="toastContainer" class="fixed top-24 right-5 z-50 flex flex-col gap-3 max-w-sm w-full pointer-events-none"></div>
 
     <!-- Floating WhatsApp Action Button -->
-    <a href="https://wa.me/6282325297099?text=Halo%20Keyvan%2C%20saya%20ingin%20bertanya%20mengenai%20parfum%20mngl." target="_blank" rel="noopener noreferrer" 
+    <a href="https://wa.me/6282325297099?text=Halo%20mngl.%2C%20saya%20ingin%20bertanya%20mengenai%20parfum%20mngl." target="_blank" rel="noopener noreferrer" 
        class="fixed bottom-6 right-6 z-40 bg-emerald-600 hover:bg-emerald-700 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-floating transition-all duration-300 hover:scale-110 group" 
-       aria-label="Chat WhatsApp Keyvan">
+       aria-label="Chat WhatsApp mngl.">
         <i class="fa-brands fa-whatsapp text-2xl"></i>
         <span class="absolute right-16 bg-brand-main text-white text-xs px-3 py-1.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-md">
             Konsultasi Aroma via WA
@@ -401,7 +401,7 @@
             <div class="bg-brand-surface border border-brand-border rounded-3xl p-6 sm:p-10 shadow-luxury">
                 <div class="text-center mb-8 space-y-2">
                     <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-main">Form Pemesanan Fast Order</h2>
-                    <p class="text-xs sm:text-sm text-brand-muted">Isi data di bawah ini untuk terhubung langsung ke WhatsApp Keyvan.</p>
+                    <p class="text-xs sm:text-sm text-brand-muted">Isi data di bawah ini untuk terhubung langsung ke WhatsApp mngl..</p>
                 </div>
 
                 <form id="orderForm" onsubmit="sendWhatsAppOrder(event)" class="space-y-5">
@@ -456,7 +456,7 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col items-center text-center space-y-6">
             <div>
                 <span class="text-3xl font-extrabold text-white tracking-tight">mngl.</span>
-                <p class="text-xs text-zinc-400 mt-1">SCENTS FOR YOU • Official Contact: Keyvan (+62 823-2529-7099)</p>
+                <p class="text-xs text-zinc-400 mt-1">SCENTS FOR YOU • Official Contact: mngl. (+62 823-2529-7099)</p>
             </div>
             
             <div class="flex items-center gap-6 text-sm text-zinc-400">
@@ -769,7 +769,7 @@
             const notes = document.getElementById('custNotes').value.trim();
             const total = qty * UNIT_PRICE;
 
-            const msg = `Halo Keyvan, saya ingin memesan parfum mngl. berikut:\n\n` +
+            const msg = `Halo mngl., saya ingin memesan parfum mngl. berikut:\n\n` +
                         `• *Nama Pemesan*: ${name}\n` +
                         `• *Varian*: ${variant} (30 ml)\n` +
                         `• *Jumlah*: ${qty} botol\n` +
@@ -786,7 +786,7 @@
                 showToast('Keranjang belanja Anda masih kosong.', 'info');
                 return;
             }
-            let msg = `Halo Keyvan, saya ingin pesan parfum mngl. dari keranjang belanja:\n\n`;
+            let msg = `Halo mngl., saya ingin pesan parfum mngl. dari keranjang belanja:\n\n`;
             let total = 0;
             cart.forEach((item, i) => {
                 const sub = item.price * item.qty;
