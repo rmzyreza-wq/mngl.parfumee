@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mngl. SCENTS FOR YOU — Eau De Parfum 30ml</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#FAF7F2',
+                            surface: '#FFFFFF',
+                            main: '#2C2A29',
+                            muted: '#736E68',
+                            accent: '#A68A72',
+                            accentDark: '#846953',
+                            border: '#E6DFD5',
+                            lightBg: '#F4EFE6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        luxury: '0 15px 35px rgba(44, 42, 41, 0.08)',
+                        floating: '0 10px 25px rgba(132, 105, 83, 0.25)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Custom Scrollbar & Animations */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF7F2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #A68A72;
+            border-radius: 4px;
+        }
+        .toast-enter {
+            animation: slideInRight 0.3s ease-out forwards;
+        }
+        .toast-exit {
+            animation: slideOutRight 0.3s ease-in forwards;
+        }
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-brand-bg text-brand-main font-sans antialiased min-h-screen flex flex-col selection:bg-brand-accent selection:text-white">
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="fixed top-24 right-5 z-50 flex flex-col gap-3 max-w-sm w-full pointer-events-none"></div>
+
+    <!-- Floating WhatsApp Action Button -->
+    <a href="https://wa.me/6282325297099?text=Halo%20Keyvan%2C%20saya%20ingin%20bertanya%20mengenai%20parfum%20mngl." target="_blank" rel="noopener noreferrer" 
+       class="fixed bottom-6 right-6 z-40 bg-emerald-600 hover:bg-emerald-700 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-floating transition-all duration-300 hover:scale-110 group" 
+       aria-label="Chat WhatsApp Keyvan">
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+        <span class="absolute right-16 bg-brand-main text-white text-xs px-3 py-1.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-md">
+            Konsultasi Aroma via WA
+        </span>
+    </a>
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-40 bg-brand-bg/85 backdrop-blur-md border-b border-brand-border transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+            <a href="#" class="flex flex-col group">
+                <span class="text-2xl font-extrabold tracking-tight text-brand-main group-hover:text-brand-accentDark transition-colors">mngl.</span>
+                <span class="text-[10px] tracking-[0.25em] text-brand-muted font-bold -mt-1 uppercase">Scents For You</span>
+            </a>
+
+            <!-- Desktop Nav Menu -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#beranda" class="text-sm font-medium text-brand-muted hover:text-brand-main transition-colors">Beranda</a>
+                <a href="#katalog" class="text-sm font-medium text-brand-muted hover:text-brand-main transition-colors">Katalog</a>
+                <a href="#quiz" onclick="openQuizModal()" class="text-sm font-semibold text-brand-accentDark hover:text-brand-main transition-colors flex items-center gap-1.5">
+                    <i class="fa-solid fa-sparkles"></i> Scent Finder
+                </a>
+                <a href="#tentang" class="text-sm font-medium text-brand-muted hover:text-brand-main transition-colors">Tentang Kami</a>
+                <a href="#ulasan" class="text-sm font-medium text-brand-muted hover:text-brand-main transition-colors">Ulasan</a>
+                <a href="#pemesanan" class="text-sm font-medium text-brand-muted hover:text-brand-main transition-colors">Pemesanan</a>
+            </nav>
+
+            <!-- Nav Actions -->
+            <div class="flex items-center gap-3">
+                <button onclick="toggleCart()" aria-label="Keranjang Belanja" class="relative w-11 h-11 rounded-full bg-brand-surface border border-brand-border flex items-center justify-center text-brand-main hover:border-brand-main transition-colors shadow-sm">
+                    <i class="fa-solid fa-bag-shopping text-base"></i>
+                    <span id="cartCount" class="hidden absolute -top-1 -right-1 bg-brand-accentDark text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-brand-bg">0</span>
+                </button>
+                <button onclick="toggleMenu()" aria-label="Toggle Navigation" class="md:hidden w-11 h-11 rounded-full bg-brand-surface border border-brand-border flex items-center justify-center text-brand-main hover:border-brand-main transition-colors">
+                    <i class="fa-solid fa-bars text-lg" id="menuIcon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Drawer -->
+        <div id="navMenu" class="hidden md:hidden bg-brand-surface border-b border-brand-border px-6 py-6 flex flex-col gap-4 animate-fadeIn">
+            <a href="#beranda" onclick="toggleMenu()" class="text-sm font-medium text-brand-muted hover:text-brand-main py-1">Beranda</a>
+            <a href="#katalog" onclick="toggleMenu()" class="text-sm font-medium text-brand-muted hover:text-brand-main py-1">Katalog Produk</a>
+            <button onclick="toggleMenu(); openQuizModal();" class="text-left text-sm font-semibold text-brand-accentDark py-1 flex items-center gap-2">
+                <i class="fa-solid fa-sparkles"></i> Cari Aroma Favoritmu (Quiz)
+            </button>
+            <a href="#tentang" onclick="toggleMenu()" class="text-sm font-medium text-brand-muted hover:text-brand-main py-1">Tentang Kami</a>
+            <a href="#ulasan" onclick="toggleMenu()" class="text-sm font-medium text-brand-muted hover:text-brand-main py-1">Ulasan Pembeli</a>
+            <a href="#pemesanan" onclick="toggleMenu()" class="text-sm font-medium text-brand-muted hover:text-brand-main py-1">Form Pemesanan</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="py-12 md:py-20 lg:py-24">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-lightBg text-brand-accentDark text-xs font-semibold tracking-wide">
+                        <i class="fa-solid fa-gem text-xs"></i> Official EDP Collection 30ml
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-brand-main leading-[1.15]">
+                        Every Detail Tells <br class="hidden sm:inline"><span class="text-brand-accentDark italic font-serif">A Big Story.</span>
+                    </h1>
+                    <p class="text-base sm:text-lg text-brand-muted max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                        Diciptakan khusus untuk generasi muda yang menghargai kualitas, kesegaran, dan kebebasan berekspresi lewat keharuman signature 30 ml yang tahan lama.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-3.5 justify-center lg:justify-start pt-2">
+                        <a href="#pemesanan" class="inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-brand-main text-white font-semibold text-sm hover:bg-brand-accentDark transition-all duration-300 shadow-luxury group">
+                            Pesan Sekarang <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                        <button onclick="openQuizModal()" class="inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-brand-surface border border-brand-main/30 text-brand-main font-semibold text-sm hover:bg-brand-main hover:text-white transition-all duration-300">
+                            <i class="fa-solid fa-wand-magic-sparkles mr-2 text-brand-accent"></i> Cari Aromamu
+                        </button>
+                    </div>
+
+                    <!-- Trust Badges -->
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-brand-border/60 max-w-md mx-auto lg:mx-0">
+                        <div class="text-center lg:text-left">
+                            <span class="block text-xl font-bold text-brand-main">30 ml</span>
+                            <span class="text-xs text-brand-muted">Travel Size</span>
+                        </div>
+                        <div class="text-center lg:text-left">
+                            <span class="block text-xl font-bold text-brand-accentDark">EDP</span>
+                            <span class="text-xs text-brand-muted">Tahan 8-12 Jam</span>
+                        </div>
+                        <div class="text-center lg:text-left">
+                            <span class="block text-xl font-bold text-brand-main">Rp 35K</span>
+                            <span class="text-xs text-brand-muted">Harga Flat</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Image Card -->
+                <div class="lg:col-span-5">
+                    <div class="bg-brand-surface border border-brand-border rounded-3xl p-5 shadow-luxury hover:shadow-2xl transition-all duration-500 relative group">
+                        <div class="relative overflow-hidden rounded-2xl aspect-[4/5] bg-brand-lightBg mb-5">
+                            <img src="images/awal.jpg" 
+                                 alt="mngl Eau De Parfum Collection" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-brand-main/40 via-transparent to-transparent"></div>
+                            <span class="absolute top-4 right-4 bg-brand-surface/90 backdrop-blur-md text-brand-main text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
+                                Premium Quality
+                            </span>
+                        </div>
+                        <div class="text-center space-y-1.5">
+                            <h3 class="text-xl font-bold text-brand-main">mngl. Eau De Parfum</h3>
+                            <p class="text-xs text-brand-muted">Clean Monochromatic Aesthetic • 30 ml</p>
+                            <div class="pt-2">
+                                <span class="inline-block bg-brand-bg text-brand-accentDark font-extrabold text-lg px-4 py-1.5 rounded-xl border border-brand-border">
+                                    Rp 35.000
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Catalog Section -->
+    <section id="katalog" class="py-16 md:py-24 bg-brand-surface/50 border-y border-brand-border">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
+                <span class="text-xs font-bold tracking-widest text-brand-accent uppercase">Varian Exclusive</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-main tracking-tight">Katalog Signature mngl.</h2>
+                <p class="text-sm sm:text-base text-brand-muted">Setiap botol 30 ml diracik secara presisi. Temukan karakter wewangian yang merepresentasikan kepribadianmu.</p>
+                
+                <!-- Category Filter Buttons -->
+                <div class="flex flex-wrap items-center justify-center gap-2 pt-4" id="filterBtnGroup">
+                    <button onclick="filterCatalog('all')" class="filter-btn active px-4 py-2 rounded-xl text-xs font-semibold bg-brand-main text-white transition-all shadow-sm" data-category="all">Semua Varian</button>
+                    <button onclick="filterCatalog('warm')" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-brand-bg text-brand-muted hover:text-brand-main border border-brand-border transition-all" data-category="warm">Warm & Wood</button>
+                    <button onclick="filterCatalog('floral')" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-brand-bg text-brand-muted hover:text-brand-main border border-brand-border transition-all" data-category="floral">Floral & Rose</button>
+                    <button onclick="filterCatalog('fresh')" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-brand-bg text-brand-muted hover:text-brand-main border border-brand-border transition-all" data-category="fresh">Fresh Aquatic</button>
+                    <button onclick="filterCatalog('sweet')" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-brand-bg text-brand-muted hover:text-brand-main border border-brand-border transition-all" data-category="sweet">Sweet Vanilla</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="productGrid">
+                <!-- Amber Woods Card -->
+                <div class="product-card group bg-brand-surface border border-brand-border rounded-2xl overflow-hidden shadow-sm hover:shadow-luxury hover:-translate-y-1 transition-all duration-300 flex flex-col" data-category="warm">
+                    <div class="relative h-60 bg-brand-lightBg overflow-hidden">
+                        <img src="images/wood.png" alt="Amber Woods Parfum" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 bg-brand-surface/90 backdrop-blur-sm text-[10px] font-bold uppercase tracking-wider text-amber-800 px-2.5 py-1 rounded-md">Warm & Luxury</span>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-brand-main group-hover:text-brand-accentDark transition-colors">Amber Woods</h3>
+                        <p class="text-xs text-brand-muted mt-2 mb-4 leading-relaxed line-clamp-2">Perpaduan mewahnya kayu cashmere, amber hangat, serta sentuhan blackcurrant yang elegan.</p>
+                        <div class="mt-auto pt-4 border-t border-brand-border flex items-center justify-between">
+                            <span class="text-base font-extrabold text-brand-main">Rp 35.000</span>
+                            <div class="flex items-center gap-2">
+                                <button onclick="openModal('Amber Woods', 'Rp 35.000', 'Perpaduan mewahnya kayu cashmere, amber hangat, serta sentuhan blackcurrant yang elegan.', 'Blackcurrant, Aldehydes, Mandarin', 'Cashmere Wood, Cedarwood, White Tea', 'Warm Amber, Clean Musk, Tonka Foam', 'images/amber.PNG')" 
+                                        class="w-9 h-9 rounded-lg bg-brand-bg border border-brand-border flex items-center justify-center text-brand-main hover:bg-brand-main hover:text-white transition-colors" title="Lihat Detail Pyramid">
+                                    <i class="fa-solid fa-eye text-xs"></i>
+                                </button>
+                                <button onclick="addToCart('Amber Woods', 35000)" class="px-3.5 py-2 rounded-lg bg-brand-main text-white text-xs font-semibold hover:bg-brand-accentDark transition-colors">
+                                    Beli
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blooming Rose Card -->
+                <div class="product-card group bg-brand-surface border border-brand-border rounded-2xl overflow-hidden shadow-sm hover:shadow-luxury hover:-translate-y-1 transition-all duration-300 flex flex-col" data-category="floral">
+                    <div class="relative h-60 bg-brand-lightBg overflow-hidden">
+                        <img src="images/rose.jpg" alt="Blooming Rose Parfum" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 bg-brand-surface/90 backdrop-blur-sm text-[10px] font-bold uppercase tracking-wider text-rose-800 px-2.5 py-1 rounded-md">Floral & Romantic</span>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-brand-main group-hover:text-brand-accentDark transition-colors">Blooming Rose</h3>
+                        <p class="text-xs text-brand-muted mt-2 mb-4 leading-relaxed line-clamp-2">Keharuman mawar mekar yang lembut berpadu dengan wild berries dan manisnya vanilla.</p>
+                        <div class="mt-auto pt-4 border-t border-brand-border flex items-center justify-between">
+                            <span class="text-base font-extrabold text-brand-main">Rp 35.000</span>
+                            <div class="flex items-center gap-2">
+                                <button onclick="openModal('Blooming Rose', 'Rp 35.000', 'Keharuman mawar mekar yang lembut berpadu dengan wild berries dan manisnya vanilla.', 'Pink Rose Petals, Wild Berries, Sparkling Mandarin', 'Red Rose, Jasmine Blossom, White Lily', 'Soft Vanilla, Sandalwood, Velvet Musk', 'images/blooming.PNG')" 
+                                        class="w-9 h-9 rounded-lg bg-brand-bg border border-brand-border flex items-center justify-center text-brand-main hover:bg-brand-main hover:text-white transition-colors" title="Lihat Detail Pyramid">
+                                    <i class="fa-solid fa-eye text-xs"></i>
+                                </button>
+                                <button onclick="addToCart('Blooming Rose', 35000)" class="px-3.5 py-2 rounded-lg bg-brand-main text-white text-xs font-semibold hover:bg-brand-accentDark transition-colors">
+                                    Beli
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ocean Tide Card -->
+                <div class="product-card group bg-brand-surface border border-brand-border rounded-2xl overflow-hidden shadow-sm hover:shadow-luxury hover:-translate-y-1 transition-all duration-300 flex flex-col" data-category="fresh">
+                    <div class="relative h-60 bg-brand-lightBg overflow-hidden">
+                        <img src="images/ocean.png" alt="Ocean Tide Parfum" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 bg-brand-surface/90 backdrop-blur-sm text-[10px] font-bold uppercase tracking-wider text-sky-800 px-2.5 py-1 rounded-md">Fresh & Aquatic</span>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-brand-main group-hover:text-brand-accentDark transition-colors">Ocean Tide</h3>
+                        <p class="text-xs text-brand-muted mt-2 mb-4 leading-relaxed line-clamp-2">Kesegaran laut yang dingin bersanding dengan wangi jeruk bergamot dan lotus yang tenang.</p>
+                        <div class="mt-auto pt-4 border-t border-brand-border flex items-center justify-between">
+                            <span class="text-base font-extrabold text-brand-main">Rp 35.000</span>
+                            <div class="flex items-center gap-2">
+                                <button onclick="openModal('Ocean Tide', 'Rp 35.000', 'Kesegaran laut yang dingin bersanding dengan wangi jeruk bergamot dan lotus yang tenang.', 'Bergamot, Mandarin Orange, Litchi', 'Sea Notes, Lotus, Orange Blossom', 'Amber, Musk, Tonka Bean', 'images/tide.PNG')" 
+                                        class="w-9 h-9 rounded-lg bg-brand-bg border border-brand-border flex items-center justify-center text-brand-main hover:bg-brand-main hover:text-white transition-colors" title="Lihat Detail Pyramid">
+                                    <i class="fa-solid fa-eye text-xs"></i>
+                                </button>
+                                <button onclick="addToCart('Ocean Tide', 35000)" class="px-3.5 py-2 rounded-lg bg-brand-main text-white text-xs font-semibold hover:bg-brand-accentDark transition-colors">
+                                    Beli
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sugar Cloud Card -->
+                <div class="product-card group bg-brand-surface border border-brand-border rounded-2xl overflow-hidden shadow-sm hover:shadow-luxury hover:-translate-y-1 transition-all duration-300 flex flex-col" data-category="sweet">
+                    <div class="relative h-60 bg-brand-lightBg overflow-hidden">
+                        <img src="images/cloud.jpg" alt="Sugar Cloud Parfum" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 bg-brand-surface/90 backdrop-blur-sm text-[10px] font-bold uppercase tracking-wider text-purple-800 px-2.5 py-1 rounded-md">Sweet & Soft</span>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-brand-main group-hover:text-brand-accentDark transition-colors">Sugar Cloud</h3>
+                        <p class="text-xs text-brand-muted mt-2 mb-4 leading-relaxed line-clamp-2">Aroma manis bak gula kapas dan marshmallow lembut yang terasa hangat dan ceria.</p>
+                        <div class="mt-auto pt-4 border-t border-brand-border flex items-center justify-between">
+                            <span class="text-base font-extrabold text-brand-main">Rp 35.000</span>
+                            <div class="flex items-center gap-2">
+                                <button onclick="openModal('Sugar Cloud', 'Rp 35.000', 'Aroma manis bak gula kapas dan marshmallow lembut yang terasa hangat dan ceria.', 'Cotton Candy, Sparkling Pear, Pink Sugar', 'Heliotrope, Whipped Cream, Fluffy Marshmallow', 'Soft Vanilla, Sandalwood, Velvet Musk', 'images/sugar.PNG')" 
+                                        class="w-9 h-9 rounded-lg bg-brand-bg border border-brand-border flex items-center justify-center text-brand-main hover:bg-brand-main hover:text-white transition-colors" title="Lihat Detail Pyramid">
+                                    <i class="fa-solid fa-eye text-xs"></i>
+                                </button>
+                                <button onclick="addToCart('Sugar Cloud', 35000)" class="px-3.5 py-2 rounded-lg bg-brand-main text-white text-xs font-semibold hover:bg-brand-accentDark transition-colors">
+                                    Beli
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="tentang" class="py-16 md:py-24 bg-brand-lightBg">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-6">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-surface text-brand-accentDark text-xs font-semibold">
+                <i class="fa-solid fa-seedling"></i> Cerita Dibalik Brand
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-main tracking-tight">Berawal Dari Sebuah Rintisan</h2>
+            <div class="p-8 sm:p-10 rounded-3xl bg-brand-surface border border-brand-border shadow-sm text-left sm:text-center space-y-4">
+                <p class="text-base text-brand-muted leading-relaxed">
+                    MNGL berawal dari kata <strong class="text-brand-main font-bold">"mungil"</strong>, mewakili komitmen kami dalam membangun brand ini secara bertahap dari skala kecil hingga berkembang pesat sampai sekarang.
+                </p>
+                <p class="text-base text-brand-muted leading-relaxed">
+                    Kami percaya bahwa <em class="text-brand-accentDark font-serif italic">setiap detail kecil punya cerita besar</em>. MNGL diciptakan khusus untuk generasi muda yang menghargai kualitas premium, kesegaran otentik, dan kebebasan berekspresi lewat keharuman personal yang elegan.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials / Social Proof -->
+    <section id="ulasan" class="py-16 md:py-24">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="text-center max-w-xl mx-auto mb-12 space-y-2">
+                <span class="text-xs font-bold tracking-widest text-brand-accent uppercase">Testimoni Pelanggan</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-main">Kata Mereka Tentang mngl.</h2>
+                <p class="text-xs sm:text-sm text-brand-muted">Pengalaman asli dari mereka yang telah menemukan aroma favoritnya.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-brand-surface p-6 rounded-2xl border border-brand-border shadow-sm flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex text-amber-500 text-xs gap-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-sm text-brand-main italic">"Amber Woods bener-bener mewah kerasa vibes cowok elegan. Wanginya tahan cocok banget buat kuliah dan nongkrong!"</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-brand-border flex items-center justify-between">
+                        <div>
+                            <h4 class="text-xs font-bold text-brand-main">Paris</h4>
+                            <span class="text-[10px] text-brand-muted">Varian: Amber Woods</span>
+                        </div>
+                        <span class="text-[10px] bg-emerald-50 text-emerald-700 font-semibold px-2 py-0.5 rounded-full border border-emerald-200"><i class="fa-solid fa-circle-check text-[9px]"></i> Verified</span>
+                    </div>
+                </div>
+
+                <div class="bg-brand-surface p-6 rounded-2xl border border-brand-border shadow-sm flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex text-amber-500 text-xs gap-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-sm text-brand-main italic">"Blooming Rose manis, soft, trus seger banget, gak bikin pusing, menurutku worth it bangett, Thank you Mungil!."</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-brand-border flex items-center justify-between">
+                        <div>
+                            <h4 class="text-xs font-bold text-brand-main">Regita</h4>
+                            <span class="text-[10px] text-brand-muted">Varian: Blooming Rose</span>
+                        </div>
+                        <span class="text-[10px] bg-emerald-50 text-emerald-700 font-semibold px-2 py-0.5 rounded-full border border-emerald-200"><i class="fa-solid fa-circle-check text-[9px]"></i> Verified</span>
+                    </div>
+                </div>
+
+                <div class="bg-brand-surface p-6 rounded-2xl border border-brand-border shadow-sm flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex text-amber-500 text-xs gap-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-sm text-brand-main italic">"Alhamdulliah varian ini wanginya manis dan tahan banget, cocok banget dipake ketika di indoor. Pengiriman juga aman & super cepat!"</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-brand-border flex items-center justify-between">
+                        <div>
+                            <h4 class="text-xs font-bold text-brand-main">Restu</h4>
+                            <span class="text-[10px] text-brand-muted">Varian: Sugar Cloud</span>
+                        </div>
+                        <span class="text-[10px] bg-emerald-50 text-emerald-700 font-semibold px-2 py-0.5 rounded-full border border-emerald-200"><i class="fa-solid fa-circle-check text-[9px]"></i> Verified</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Form Section -->
+    <section id="pemesanan" class="py-16 md:py-24 bg-brand-lightBg border-t border-brand-border">
+        <div class="max-w-2xl mx-auto px-4 sm:px-6">
+            <div class="bg-brand-surface border border-brand-border rounded-3xl p-6 sm:p-10 shadow-luxury">
+                <div class="text-center mb-8 space-y-2">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-main">Form Pemesanan Fast Order</h2>
+                    <p class="text-xs sm:text-sm text-brand-muted">Isi data di bawah ini untuk terhubung langsung ke WhatsApp Keyvan.</p>
+                </div>
+
+                <form id="orderForm" onsubmit="sendWhatsAppOrder(event)" class="space-y-5">
+                    <div>
+                        <label for="custName" class="block text-xs font-bold uppercase tracking-wider text-brand-main mb-2">Nama Lengkap</label>
+                        <input type="text" id="custName" required placeholder="Masukkan nama Anda" 
+                               class="w-full px-4 py-3 rounded-xl border border-brand-border bg-brand-bg text-sm focus:outline-none focus:border-brand-main focus:bg-white transition-all">
+                    </div>
+
+                    <div>
+                        <label for="custVariant" class="block text-xs font-bold uppercase tracking-wider text-brand-main mb-2">Pilih Varian Parfum (30 ml)</label>
+                        <select id="custVariant" class="w-full px-4 py-3 rounded-xl border border-brand-border bg-brand-bg text-sm focus:outline-none focus:border-brand-main focus:bg-white transition-all">
+                            <option value="Amber Woods">Amber Woods (Warm & Luxury) — Rp35.000</option>
+                            <option value="Blooming Rose">Blooming Rose (Floral & Romantic) — Rp35.000</option>
+                            <option value="Ocean Tide">Ocean Tide (Fresh & Aquatic) — Rp35.000</option>
+                            <option value="Sugar Cloud">Sugar Cloud (Sweet & Soft) — Rp35.000</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="custQty" class="block text-xs font-bold uppercase tracking-wider text-brand-main mb-2">Jumlah Botol</label>
+                        <input type="number" id="custQty" min="1" value="1" required onchange="calcTotal()" onkeyup="calcTotal()" 
+                               class="w-full px-4 py-3 rounded-xl border border-brand-border bg-brand-bg text-sm focus:outline-none focus:border-brand-main focus:bg-white transition-all">
+                    </div>
+
+                    <div>
+                        <label for="custNotes" class="block text-xs font-bold uppercase tracking-wider text-brand-main mb-2">Alamat / Catatan Pengiriman</label>
+                        <textarea id="custNotes" rows="3" placeholder="Masukkan alamat lengkap atau instruksi khusus pengiriman" 
+                                  class="w-full px-4 py-3 rounded-xl border border-brand-border bg-brand-bg text-sm focus:outline-none focus:border-brand-main focus:bg-white transition-all"></textarea>
+                    </div>
+
+                    <div class="flex items-center justify-between p-4 rounded-xl bg-brand-bg border border-brand-border">
+                        <span class="text-sm font-semibold text-brand-main">Total Pembayaran:</span>
+                        <strong id="totalAmount" class="text-xl font-extrabold text-brand-accentDark">Rp 35.000</strong>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                        <button type="submit" class="flex-1 py-3.5 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm flex items-center justify-center gap-2 transition-colors shadow-md">
+                            <i class="fa-brands fa-whatsapp text-lg"></i> Kirim Langsung via WhatsApp
+                        </button>
+                        <button type="button" onclick="addFormToCart()" class="py-3.5 px-6 rounded-xl bg-brand-main hover:bg-brand-accentDark text-white font-bold text-sm transition-colors">
+                            + Masukkan Keranjang
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-zinc-900 text-zinc-300 py-12 border-t border-zinc-800 mt-auto">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col items-center text-center space-y-6">
+            <div>
+                <span class="text-3xl font-extrabold text-white tracking-tight">mngl.</span>
+                <p class="text-xs text-zinc-400 mt-1">SCENTS FOR YOU • Official Contact: Keyvan (+62 823-2529-7099)</p>
+            </div>
+            
+            <div class="flex items-center gap-6 text-sm text-zinc-400">
+                <a href="#beranda" class="hover:text-white transition-colors">Beranda</a>
+                <a href="#katalog" class="hover:text-white transition-colors">Katalog</a>
+                <a href="#tentang" class="hover:text-white transition-colors">Tentang Kami</a>
+                <a href="#pemesanan" class="hover:text-white transition-colors">Pemesanan</a>
+            </div>
+
+            <div class="pt-6 border-t border-zinc-800 w-full text-center">
+                <p class="text-xs text-zinc-500">© 2026 mngl. All rights reserved. Crafting premium signature fragrances.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Drawer Overlay -->
+    <div id="cartDrawer" class="hidden fixed inset-0 z-50 bg-brand-main/60 backdrop-blur-sm flex justify-end transition-opacity duration-300">
+        <div class="w-full max-w-md bg-brand-surface h-full flex flex-col shadow-2xl animate-slideLeft">
+            <div class="p-6 border-b border-brand-border flex items-center justify-between">
+                <h3 class="text-lg font-bold text-brand-main flex items-center gap-2">
+                    <i class="fa-solid fa-bag-shopping text-brand-accent"></i> Keranjang Belanja
+                </h3>
+                <button onclick="toggleCart()" class="w-8 h-8 rounded-full hover:bg-brand-bg flex items-center justify-center text-brand-muted hover:text-brand-main transition-colors">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div id="cartItems" class="p-6 flex-grow overflow-y-auto space-y-4">
+                <p class="empty-msg text-center text-sm text-brand-muted py-10">Keranjang belanja Anda masih kosong.</p>
+            </div>
+
+            <div class="p-6 border-t border-brand-border bg-brand-bg space-y-4">
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-medium text-brand-main">Total Keseluruhan:</span>
+                    <strong id="cartGrandTotal" class="text-xl font-extrabold text-brand-accentDark">Rp 0</strong>
+                </div>
+                <button onclick="checkoutCartWA()" class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm flex items-center justify-center gap-2 transition-colors shadow-md">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Checkout Semua via WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="detailModal" class="hidden fixed inset-0 z-50 bg-brand-main/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-brand-surface rounded-3xl max-w-3xl w-full p-6 sm:p-8 relative shadow-luxury max-h-[90vh] overflow-y-auto border border-brand-border">
+            <button onclick="closeModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-brand-bg hover:bg-brand-main hover:text-white flex items-center justify-center text-brand-muted transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                <div class="md:col-span-5">
+                    <img id="modalImg" src="" alt="Detail Parfum" class="w-full h-72 md:h-80 object-cover rounded-2xl bg-brand-lightBg border border-brand-border shadow-sm">
+                </div>
+                <div class="md:col-span-7 space-y-4">
+                    <div>
+                        <span class="text-[11px] font-bold uppercase tracking-widest text-brand-accent">Eau De Parfum • 30 ml</span>
+                        <h3 id="modalTitle" class="text-2xl font-extrabold text-brand-main mt-1">Nama Parfum</h3>
+                        <span id="modalPrice" class="inline-block mt-2 text-xl font-bold text-brand-accentDark bg-brand-bg px-3 py-1 rounded-lg border border-brand-border">Rp 35.000</span>
+                    </div>
+
+                    <p id="modalDesc" class="text-xs sm:text-sm text-brand-muted leading-relaxed">Deskripsi parfum...</p>
+
+                    <!-- Interactive Olfactory Pyramid -->
+                    <div class="space-y-2.5 pt-2">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-brand-main border-b border-brand-border pb-1">Piramida Aroma (Olfactory Notes)</h4>
+                        
+                        <div class="p-2.5 rounded-xl bg-brand-bg border border-brand-border space-y-1">
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-amber-700 flex items-center gap-1">
+                                <i class="fa-solid fa-cloud"></i> Top Notes (Kesegaran Awal)
+                            </span>
+                            <p id="modalTop" class="text-xs font-medium text-brand-main">...</p>
+                        </div>
+
+                        <div class="p-2.5 rounded-xl bg-brand-bg border border-brand-border space-y-1">
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-rose-700 flex items-center gap-1">
+                                <i class="fa-solid fa-heart"></i> Heart / Middle Notes (Karakter Utama)
+                            </span>
+                            <p id="modalMiddle" class="text-xs font-medium text-brand-main">...</p>
+                        </div>
+
+                        <div class="p-2.5 rounded-xl bg-brand-bg border border-brand-border space-y-1">
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-amber-900 flex items-center gap-1">
+                                <i class="fa-solid fa-tree"></i> Base Notes (Daya Tahan Akhir)
+                            </span>
+                            <p id="modalBase" class="text-xs font-medium text-brand-main">...</p>
+                        </div>
+                    </div>
+
+                    <button onclick="addFromModal()" class="w-full py-3.5 rounded-xl bg-brand-main hover:bg-brand-accentDark text-white font-bold text-sm transition-colors mt-4">
+                        Tambah ke Keranjang
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scent Finder Quiz Modal -->
+    <div id="quizModal" class="hidden fixed inset-0 z-50 bg-brand-main/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-brand-surface rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-luxury border border-brand-border">
+            <button onclick="closeQuizModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-brand-bg flex items-center justify-center text-brand-muted hover:text-brand-main">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center mb-6 space-y-1">
+                <span class="text-[10px] font-bold uppercase tracking-widest text-brand-accent">Scent Finder Quiz</span>
+                <h3 class="text-xl font-extrabold text-brand-main">Temukan Aroma Signature-mu</h3>
+            </div>
+
+            <div id="quizContent" class="space-y-5">
+                <!-- Question 1 -->
+                <div class="quiz-step space-y-3">
+                    <label class="block text-xs font-bold text-brand-main uppercase">1. Suasana karakter seperti apa yang paling kamu sukai?</label>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <button onclick="selectQuizAnswer('vibe', 'warm')" class="p-3 rounded-xl border border-brand-border hover:border-brand-main hover:bg-brand-bg font-medium text-left">
+                            🔥 Hangat, Elegan & Mewah
+                        </button>
+                        <button onclick="selectQuizAnswer('vibe', 'floral')" class="p-3 rounded-xl border border-brand-border hover:border-brand-main hover:bg-brand-bg font-medium text-left">
+                            🌹 Segar & Aromatic
+                        </button>
+                        <button onclick="selectQuizAnswer('vibe', 'fresh')" class="p-3 rounded-xl border border-brand-border hover:border-brand-main hover:bg-brand-bg font-medium text-left">
+                            🌊 Segar Seperti Laut
+                        </button>
+                        <button onclick="selectQuizAnswer('vibe', 'sweet')" class="p-3 rounded-xl border border-brand-border hover:border-brand-main hover:bg-brand-bg font-medium text-left">
+                            🍭 Manis & Romantis
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Result View (Hidden initially) -->
+            <div id="quizResult" class="hidden text-center space-y-4 py-2">
+                <div class="justify-center text-brand-accentDark text">
+                    <i class="fa-solid fa-sparkles"></i>
+                </div>
+                <div>
+                    <span class="text-xs text-brand-muted font-bold">Rekomendasi Terbaik Untukmu:</span>
+                    <img id="resultImg" src="" alt="Hasil Rekomendasi" style="width: 125%; max-height: 250px; object-fit: cover; border-radius: 12px; margin-bottom: 15px;">
+                    <h4 id="resultTitle" class="text-2xl font-extrabold text-brand-main">Amber Woods</h4>
+                    <p id="resultDesc" class="text-xs text-brand-muted mt-1">Perpaduan mewahnya kayu cashmere & amber hangat.</p>
+                </div>
+                <div class="flex gap-2">
+                    <button id="resultAddBtn" onclick="" class="flex-1 py-3 rounded-xl bg-brand-main text-white font-bold text-xs hover:bg-brand-accentDark transition-colors">
+                        Tambah ke Keranjang
+                    </button>
+                    <button onclick="resetQuiz()" class="px-4 py-3 rounded-xl border border-brand-border text-brand-main font-bold text-xs hover:bg-brand-bg">
+                        Ulangi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        let cart = [];
+        let currentProduct = null;
+        const UNIT_PRICE = 35000;
+
+        // Custom Toast Notification System
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast-enter pointer-events-auto flex items-center gap-3 p-4 rounded-xl shadow-luxury bg-brand-surface border border-brand-border text-xs font-semibold text-brand-main`;
+            
+            const icon = type === 'success' 
+                ? '<i class="fa-solid fa-circle-check text-emerald-600 text-base"></i>' 
+                : '<i class="fa-solid fa-circle-info text-brand-accent text-base"></i>';
+                
+            toast.innerHTML = `${icon} <span>${message}</span>`;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('toast-enter');
+                toast.classList.add('toast-exit');
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+
+        // Toggle Navbar Menu
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('hidden');
+        }
+
+        // Toggle Cart Drawer
+        function toggleCart() {
+            document.getElementById('cartDrawer').classList.toggle('hidden');
+        }
+
+        // Dynamic Single Item Calculator
+        function calcTotal() {
+            const qtyInput = document.getElementById('custQty');
+            const qty = parseInt(qtyInput.value) || 1;
+            const total = qty * UNIT_PRICE;
+            document.getElementById('totalAmount').innerText = `Rp ${total.toLocaleString('id-ID')}`;
+        }
+
+        // Add to Cart Logic
+        function addToCart(name, price) {
+            const existing = cart.find(item => item.name === name);
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ name, price, qty: 1 });
+            }
+            updateCart();
+            showToast(`"${name}" telah ditambahkan ke keranjang.`);
+        }
+
+        // Add Form Item directly to Cart
+        function addFormToCart() {
+            const variant = document.getElementById('custVariant').value;
+            const qty = parseInt(document.getElementById('custQty').value) || 1;
+            
+            const existing = cart.find(item => item.name === variant);
+            if (existing) {
+                existing.qty += qty;
+            } else {
+                cart.push({ name: variant, price: UNIT_PRICE, qty: qty });
+            }
+            updateCart();
+            showToast(`${qty}x "${variant}" ditambahkan ke keranjang.`);
+            toggleCart();
+        }
+
+        // Update Cart Counter & UI
+        function updateCart() {
+            const countEl = document.getElementById('cartCount');
+            const itemsEl = document.getElementById('cartItems');
+            const totalEl = document.getElementById('cartGrandTotal');
+
+            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            if (totalQty > 0) {
+                countEl.innerText = totalQty;
+                countEl.classList.remove('hidden');
+            } else {
+                countEl.classList.add('hidden');
+            }
+
+            if (cart.length === 0) {
+                itemsEl.innerHTML = `<p class="empty-msg text-center text-sm text-brand-muted py-10">Keranjang belanja Anda masih kosong.</p>`;
+                totalEl.innerText = 'Rp 0';
+                return;
+            }
+
+            let html = '';
+            let grandTotal = 0;
+            cart.forEach((item, idx) => {
+                const subtotal = item.price * item.qty;
+                grandTotal += subtotal;
+                html += `
+                    <div class="flex items-center justify-between pb-3 border-b border-brand-border">
+                        <div>
+                            <strong class="text-sm font-bold text-brand-main block">${item.name}</strong>
+                            <span class="text-xs text-brand-muted">Rp ${item.price.toLocaleString('id-ID')} x ${item.qty}</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-brand-bg px-2 py-1 rounded-lg border border-brand-border">
+                            <button onclick="changeCartQty(${idx}, -1)" class="w-6 h-6 flex items-center justify-center font-bold text-brand-main hover:text-brand-accentDark text-xs">-</button>
+                            <span class="text-xs font-bold text-brand-main px-1">${item.qty}</span>
+                            <button onclick="changeCartQty(${idx}, 1)" class="w-6 h-6 flex items-center justify-center font-bold text-brand-main hover:text-brand-accentDark text-xs">+</button>
+                        </div>
+                    </div>
+                `;
+            });
+            itemsEl.innerHTML = html;
+            totalEl.innerText = `Rp ${grandTotal.toLocaleString('id-ID')}`;
+        }
+
+        // Modify Quantity in Cart
+        function changeCartQty(index, delta) {
+            cart[index].qty += delta;
+            if (cart[index].qty <= 0) cart.splice(index, 1);
+            updateCart();
+        }
+
+        // Open Detail Modal with Notes Pyramid
+        function openModal(title, price, desc, top, middle, base, img) {
+            currentProduct = { name: title, price: 35000 };
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalPrice').innerText = price;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('modalTop').innerText = top;
+            document.getElementById('modalMiddle').innerText = middle;
+            document.getElementById('modalBase').innerText = base;
+            document.getElementById('modalImg').src = img;
+
+            document.getElementById('detailModal').classList.remove('hidden');
+        }
+
+        // Close Detail Modal
+        function closeModal() {
+            document.getElementById('detailModal').classList.add('hidden');
+        }
+
+        // Add to Cart from Detail Modal
+        function addFromModal() {
+            if (currentProduct) {
+                addToCart(currentProduct.name, currentProduct.price);
+                closeModal();
+                toggleCart();
+            }
+        }
+
+        // Submit Single Order Form via WhatsApp
+        function sendWhatsAppOrder(e) {
+            e.preventDefault();
+            const name = document.getElementById('custName').value.trim();
+            const variant = document.getElementById('custVariant').value;
+            const qty = parseInt(document.getElementById('custQty').value) || 1;
+            const notes = document.getElementById('custNotes').value.trim();
+            const total = qty * UNIT_PRICE;
+
+            const msg = `Halo Keyvan, saya ingin memesan parfum mngl. berikut:\n\n` +
+                        `• *Nama Pemesan*: ${name}\n` +
+                        `• *Varian*: ${variant} (30 ml)\n` +
+                        `• *Jumlah*: ${qty} botol\n` +
+                        `• *Total*: Rp ${total.toLocaleString('id-ID')}\n` +
+                        (notes ? `• *Alamat/Catatan*: ${notes}\n` : '') +
+                        `\nMohon konfirmasi pesanan saya. Terima kasih!`;
+
+            window.open(`https://wa.me/6282325297099?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // Submit Full Cart Order via WhatsApp
+        function checkoutCartWA() {
+            if (cart.length === 0) {
+                showToast('Keranjang belanja Anda masih kosong.', 'info');
+                return;
+            }
+            let msg = `Halo Keyvan, saya ingin pesan parfum mngl. dari keranjang belanja:\n\n`;
+            let total = 0;
+            cart.forEach((item, i) => {
+                const sub = item.price * item.qty;
+                total += sub;
+                msg += `${i+1}. *${item.name}* (${item.qty}x) - Rp ${sub.toLocaleString('id-ID')}\n`;
+            });
+            msg += `\n*Total Keseluruhan: Rp ${total.toLocaleString('id-ID')}*\n\nMohon diproses, terima kasih!`;
+            window.open(`https://wa.me/6282325297099?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // Catalog Filter Logic
+        function filterCatalog(category) {
+            const cards = document.querySelectorAll('#productGrid .product-card');
+            const btns = document.querySelectorAll('#filterBtnGroup .filter-btn');
+
+            btns.forEach(btn => {
+                if (btn.getAttribute('data-category') === category) {
+                    btn.className = "filter-btn active px-4 py-2 rounded-xl text-xs font-semibold bg-brand-main text-white transition-all shadow-sm";
+                } else {
+                    btn.className = "filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-brand-bg text-brand-muted hover:text-brand-main border border-brand-border transition-all";
+                }
+            });
+
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+// Quiz / Scent Finder Logic
+function openQuizModal() {
+    resetQuiz();
+    document.getElementById('quizModal').classList.remove('hidden');
+}
+
+function closeQuizModal() {
+    document.getElementById('quizModal').classList.add('hidden');
+}
+
+function selectQuizAnswer(type, val) {
+    const quizData = {
+        warm: { 
+            title: 'Amber Woods', 
+            desc: 'Perpaduan mewahnya kayu cashmere & amber hangat yang elegan.',
+            img: 'images/amber.PNG'
+        },
+        floral: { 
+            title: 'Blooming Rose', 
+            desc: 'Keharuman mawar mekar yang lembut & feminin.',
+            img: 'images/blooming.PNG'
+        },
+        fresh: { 
+            title: 'Ocean Tide', 
+            desc: 'Kesegaran laut yang dingin bersanding dengan jeruk bergamot.',
+            img: 'images/tide.PNG'
+        },
+        sweet: { 
+            title: 'Sugar Cloud', 
+            desc: 'Aroma manis bak gula kapas & marshmallow yang ceria.',
+            img: 'images/sugar.PNG'
+        }
+    };
+
+    const result = quizData[val] || quizData.warm;
+
+    document.getElementById('quizContent').classList.add('hidden');
+    document.getElementById('quizResult').classList.remove('hidden');
+
+    // Update Teks & Gambar Hasil Quiz
+    document.getElementById('resultTitle').innerText = result.title;
+    document.getElementById('resultDesc').innerText = result.desc;
+
+    // Menampilkan Gambar Varian Rekomendasi
+    const resultImg = document.getElementById('resultImg');
+    if (resultImg) {
+        resultImg.src = result.img;
+        resultImg.alt = result.title;
+    }
+
+    document.getElementById('resultAddBtn').onclick = function() {
+        addToCart(result.title, 35000);
+        closeQuizModal();
+        toggleCart();
+    };
+}
+
+function resetQuiz() {
+    document.getElementById('quizContent').classList.remove('hidden');
+    document.getElementById('quizResult').classList.add('hidden');
+}
+    </script>
+</body>
+</html>
